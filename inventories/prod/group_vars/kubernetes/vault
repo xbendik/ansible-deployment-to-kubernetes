@@ -1,0 +1,3 @@
+#Uncrypted vault file with password. This is only for example
+#In real life is encrypted by Ansible Vault
+vault_db_password: Super_Secret_Password

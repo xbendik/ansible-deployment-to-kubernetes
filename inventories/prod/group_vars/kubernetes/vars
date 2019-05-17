@@ -1,0 +1,12 @@
+app_version: 1.0.0
+app_replicas: 1
+docker_registry: docker-registry.domain.loc:5000 
+
+memory_limit: 2000Mi
+memory_request: 600Mi
+cpu_limit: 2
+cpu_request: 0.5
+
+db_conn_string: jdbc:oracle:thin:@oracledb.domain.loc:1521:DB
+db_user: DB_USER
+db_password: "{{ vault_db_password }}"

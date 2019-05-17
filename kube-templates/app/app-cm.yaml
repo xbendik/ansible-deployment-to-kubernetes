@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-cm
+  namespace: app
+  annotations:
+    definitionVersion: "20190517"
+data:
+  application.properties: |-
+    ora.conn.string={{ db_conn_string }}
+    ora.conn.user={{ db_user }}
+    ora.conn.password={{ db_password }}
+    

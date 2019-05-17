@@ -1,0 +1,55 @@
+---
+- hosts: kubernetes
+  vars:
+    restart: false
+  tasks:
+    - name: check force restart
+      shell: echo ""
+      changed_when: restart
+      notify:
+        - stop app
+        - start app
+
+    - name: load list of files
+      include_vars: kube-templates/app/file-list.yaml
+
+    - name: check running
+      shell: kubectl get pods -n app | grep Running | grep app | grep 1/1
+      register: result
+      failed_when: false
+      changed_when: result.stdout | trim ==''
+      notify:
+        - stop app
+        - start app
+
+    - name: create directory
+      file:
+        path: /opt/ansible/app
+        state: directory
+
+    - name: prepare kube files
+      template:
+        src: kube-templates/app/{{ item }}
+        dest: /opt/ansible/app/{{ item }}
+      with_items: "{{ kube_files }}"
+      notify:
+        - stop app
+        - start app
+
+  handlers:
+    - name: stop app
+      shell: kubectl delete -f /opt/ansible/app/{{ item }}
+      ignore_errors: yes
+      with_items: "{{ kube_files }}"
+
+    - name: start app
+      shell: kubectl create -f /opt/ansible/app/{{ item }}
+      with_items: "{{ kube_files }}"
+      notify: wait for start
+
+    - name: wait for start
+      shell: kubectl get pods -n app | grep Running | grep app | grep 1/1
+      register: result
+      until: not(result.stdout | trim =='')
+      retries: 200
+      delay: 2

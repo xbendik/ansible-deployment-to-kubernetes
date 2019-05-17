@@ -1,0 +1,2 @@
+[kubernetes]
+master-node.domain.loc ansible_user=root

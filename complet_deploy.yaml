@@ -1,0 +1,1 @@
+#@TODO - complet deploy with everything inside "environment" folder. So whole app with every dependencies will be deploye within seconds on fresh new kubernetes cluster. 

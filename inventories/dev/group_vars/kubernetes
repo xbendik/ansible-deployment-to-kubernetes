@@ -1,0 +1,12 @@
+app_version: 1.0.0
+app_replicas: 1
+docker_registry: docker-registry.dev.domain.loc:5000 
+
+memory_limit: 1000Mi
+memory_request: 300Mi
+cpu_limit: 0.5
+cpu_request: 0.250
+
+db_conn_string: jdbc:oracle:thin:@oracledb-dev.domain.loc:1521:DB
+db_user: DB_USER
+db_password: password

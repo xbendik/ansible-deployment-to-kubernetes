@@ -1,0 +1,4 @@
+---
+kube_files:
+- app-cm.yaml
+- app-rc.yaml
